@@ -1,0 +1,31 @@
+{
+  "name": "@keycloak-example/server",
+  "version": "1.0.0",
+  "description": "NodeJs Server With Keycloak",
+  "main": "index.js",
+  "private": true,
+  "author": "HenriqueCesp <henriquecesps4@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "hogan-express": "^0.5.2",
+    "keycloak-connect": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ]
+  }
+}

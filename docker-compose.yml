@@ -1,0 +1,49 @@
+version: "3"
+
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./packages/server/Dockerfile
+    container_name: server
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3000:3000
+    command: yarn start
+    depends_on:
+      - keycloak
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    volumes:
+      - ./packages/keycloak/imports:/opt/jboss/keycloak/imports
+    environment:
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql

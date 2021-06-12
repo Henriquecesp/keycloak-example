@@ -1,0 +1,17 @@
+{
+  "name": "keycloak-example",
+  "version": "1.0.0",
+  "description": "A NodeJs & Keycloak Example",
+  "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "start": "yarn workspace @keycloak-example/server dev"
+  },
+  "author": "HenriqueCesp <henriquecesps4@gmail.com>",
+  "license": "MIT"
+}
